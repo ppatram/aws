@@ -1,0 +1,31 @@
+version: 0.2
+
+env:
+  variables:
+    BRAM: "not abraham"
+    MOOLENAR: "vi man"
+
+phases:
+  install:
+    commands:
+      - echo "hello jollie world! BRAM:$BRAM; MOOLENAR:$MOOLENAR" > runy.sh
+    finally:
+      - echo This always runs even if the update or install command fails 
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+    finally:
+      - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - chmod 755 runy.sh
+    finally:
+      - echo This always runs even if the install command fails
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+
+
