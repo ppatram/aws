@@ -1,31 +1,31 @@
 version: 0.2
-
 env:
-  variables:
-    BRAM: "not abraham"
-    MOOLENAR: "vi man"
+  secrets-manager:
+    GIT_USER: "arn:aws:secretsmanager:us-east-1:652542735519:secret:git_push_build-c1PuHd:git_user"
+    GIT_PASS: "arn:aws:secretsmanager:us-east-1:652542735519:secret:git_push_build-c1PuHd:git_pass"
 
 phases:
-  install:
-    commands:
-      - echo "hello jollie world! BRAM:$BRAM; MOOLENAR:$MOOLENAR" > runy.sh
-    finally:
-      - echo This always runs even if the update or install command fails 
-  pre_build:
-    commands:
-      - echo Entered the pre_build phase...
-    finally:
-      - echo This always runs even if the login command fails 
   build:
-    commands:
-      - echo Entered the build phase...
-      - echo Build started on `date`
-      - chmod 755 runy.sh
-    finally:
-      - echo This always runs even if the install command fails
-  post_build:
-    commands:
-      - echo Entered the post_build phase...
-      - echo Build completed on `date`
+    commands: |
+      exec > outykk.out 2>&1
+      git clone https://${GIT_USER}:${GIT_PASS}@git-codecommit.us-east-1.amazonaws.com/v1/repos/alfred ../monkey
+      git config --global user.email "you@example.com"
+      git config --global user.name "Your Name"
+
+      echo "Hello Worlike!"
+
+    finally: |
+      mv outykk.out ../monkey
+      cd ../monkey
+      git add .
+      git commit -m "funiek"
+      git push
 
 
+artifacts:
+  files:
+    - outy.out
+  name: outier
+  discard-paths: no
+  base-directory: ./
+  enable-symlinks: yes
